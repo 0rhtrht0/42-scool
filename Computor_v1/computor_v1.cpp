@@ -62,7 +62,7 @@ void degree_validation(char *av)
         error(FORMAT_ERROR);
 }
 
-void left_right_(std::string left)
+void left_right_(std::string left, int sign)
 {
     int i = 0;
     int a = 0;
@@ -70,8 +70,11 @@ void left_right_(std::string left)
     int c = 0;
     const char *str = left.c_str();
     int temp = 0;
+    int signn = 1;
     while (str[i])
     {
+        if (str[i] == '-')
+            signn = -1;
         while (isdigit(str[i]))
         {
             temp = temp * 10 + str[i] - 48;
@@ -80,18 +83,30 @@ void left_right_(std::string left)
         if (str[i] == 'x')
         {
             i = i + 2;
+            temp = temp * signn;
             if (str[i] == '2')
                 a = temp;
             if (str[i] == '1')
                 b = temp;
             if (str[i] == '0')
                 c = temp;
+            temp = 0;
+            signn = 1;
         }
         i++;
     }
-    computor.a = computor.a + a;
-    computor.b = computor.b + b;
-    computor.c = computor.c + c;
+    if (sign)
+    {
+        computor.a = computor.a + a;
+        computor.b = computor.b + b;
+        computor.c = computor.c + c;
+    }
+    else
+    {
+        computor.a = a - computor.a;
+        computor.b = b - computor.b;
+        computor.c = c - computor.c;        
+    }
 }
 
 void left_value(char *av)
@@ -104,8 +119,8 @@ void left_value(char *av)
     {
         left_rigt.push_back(temp);
     }
-    left_right_(left_rigt[0]);
-    left_right_(left_rigt[1]);
+    left_right_(left_rigt[0], 0);
+    left_right_(left_rigt[1], 1);
     if (computor.a)
         computor.deg = 2;
     if (computor.deg == 0 && computor.b)
