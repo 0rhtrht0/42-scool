@@ -103,9 +103,9 @@ void left_right_(std::string left, int sign)
     }
     else
     {
-        computor.a = a - computor.a;
-        computor.b = b - computor.b;
-        computor.c = c - computor.c;        
+        computor.a = computor.a - a;
+        computor.b = computor.b - b;
+        computor.c = computor.c - c;        
     }
 }
 
