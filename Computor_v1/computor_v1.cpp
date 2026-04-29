@@ -95,7 +95,7 @@ void left_right_(std::string left, int sign)
         }
         i++;
     }
-    if (sign)
+    if (!sign)
     {
         computor.a = computor.a + a;
         computor.b = computor.b + b;
@@ -103,9 +103,11 @@ void left_right_(std::string left, int sign)
     }
     else
     {
+        // std::cout << left << std::endl;
         computor.a = computor.a - a;
         computor.b = computor.b - b;
         computor.c = computor.c - c;        
+        // std::cout << computor.a << " " <<  computor.b << std::endl;
     }
 }
 
@@ -121,6 +123,17 @@ void left_value(char *av)
     }
     left_right_(left_rigt[0], 0);
     left_right_(left_rigt[1], 1);
+    if (computor.a < 0)
+    {
+        computor.a = -1 * computor.a;
+        computor.b = -1 * computor.b;
+        computor.c = -1 * computor.c;
+    }
+    if (computor.a == 0 && computor.b < 0)
+    {
+        computor.b = -1 * computor.b;
+        computor.c = -1 * computor.c;
+    }
     if (computor.a)
         computor.deg = 2;
     if (computor.deg == 0 && computor.b)

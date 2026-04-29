@@ -8,7 +8,12 @@ void aff(t_computor_v1 computor)
     if (computor.b)
     {
         if (computor.a)
-            std::cout << " + " << computor.b << " * x^1";
+        {
+            if (computor.b > 0)
+                std::cout << " + " << computor.b << " * x^1";
+            if(computor.b < 0)
+                std::cout << " - " << (computor.b * -1) << " * x^1";
+        }
         else
             std::cout << computor.b << " * x^1";
     }
