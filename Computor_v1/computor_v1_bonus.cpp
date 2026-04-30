@@ -38,11 +38,8 @@ void degree_validation(char *av)
         if (av[i] == 'x')
         {
             i++;
-            if (av[i] != '^')
-            {
-                error(FORMAT_ERROR);
-            }
-            i++;
+            if (av[i] == '^')
+                i++;
             if (av[i] > '2' || av[i] < '0')
             {
                 if (av[i] > '9' || av[i] < '0')
@@ -107,7 +104,10 @@ void left_right_(std::string left, int sign)
         }
         if (str[i] == 'x')
         {
-            i = i + 2;
+            if (str[i + 1] == '^')
+                i = i + 2;
+            else
+                i = i + 1;
             temp = temp * signn;
             if (str[i] == '2')
                 a = temp;
@@ -115,6 +115,8 @@ void left_right_(std::string left, int sign)
                 b = temp;
             if (str[i] == '0')
                 c = temp;
+            if (!isdigit(str[i]) && temp == 0)
+                b = 1;
             temp = 0;
             signn = 1;
         }
@@ -220,37 +222,23 @@ void solve(void)
     computor.delta = delta();
     if (computor.delta == 0)
     {
-        if (computor.c)
-            computor.s1 = computor.b / (-2 * computor.c);
-        else
-            computor.s1 = 0;
+        computor.s1 = computor.c / (-2 * computor.c);
         return;
     }
     else if (computor.delta > 0)
     {
         float sq = sqrt_delta(computor.delta);
-        if (computor.c)
-        {
-            computor.s1 = (-1 * computor.b - sq) / (2 * computor.c);
-            computor.s2 = (-1 * computor.b + sq) / (2 * computor.c);
-        }
-        else
-        {
-            computor.s1 = 0;
-            computor.s2 = -1 * (computor.b / computor.a);
-        }
+        computor.s1 = (-1 * computor.b - sq) / (2 * computor.c);
+        computor.s2 = (-1 * computor.b + sq) / (2 * computor.c);
         return;
     }
     else
     {
         float temp_ = sqrt_delta(v_abs(computor.delta));
-        if (computor.c)
-        {
-            computor.s1 = computor.c / (-2 * computor.c);
-            computor.s2 = computor.c / (-2 * computor.c);
-            computor.is1 = temp_ / (-2 * computor.c);
-            computor.is2 = temp_ / (2 * computor.c);
-        }
+        computor.s1 = computor.c / (-2 * computor.c);
+        computor.s2 = computor.c / (-2 * computor.c);
+        computor.is1 = temp_ / (-2 * computor.c);
+        computor.is2 = temp_ / (2 * computor.c);
         return;
     }
 }
@@ -264,4 +252,24 @@ t_computor_v1 input_validation(char *av)
     left_value(av);
     solve();
     return (computor);
+}
+
+
+void aff_bonus(float f)
+{
+    int i = 0;
+    if (i > 0)
+        while (i < f)
+            i++;
+    else
+        while (i > f)
+            i--;
+    if (i == f)
+    {
+        
+    }
+    if (f < 0)
+    {
+
+    }
 }

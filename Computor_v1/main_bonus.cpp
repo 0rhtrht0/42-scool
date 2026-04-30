@@ -1,5 +1,7 @@
 #include "computor_v1.hpp"
 
+
+
 void aff(t_computor_v1 computor)
 {
     std::cout << "Reduced form: ";

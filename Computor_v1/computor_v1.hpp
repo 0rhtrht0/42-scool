@@ -12,15 +12,20 @@
 #define DEG_SUP 2
 #define NO_SOLUTION 3
 #define FORMAT_ERROR 4
+#define eupsi 0.00001
 
 struct t_computor_v1
 {
     std::string eq;
     int deg;
-    int delta;
-    int a;
-    int b;
-    int c;
+    float delta;
+    float a;
+    float b;
+    float c;
+    float s1;
+    float s2;
+    float is1;
+    float is2;
 };
 
 extern t_computor_v1 computor;
