@@ -33,8 +33,6 @@ void degree_validation(char *av)
     int a = 0;
     while (av[i])
     {
-        if (av[i] == '=')
-            a++;
         if (av[i] == 'x')
         {
             i++;
@@ -43,8 +41,10 @@ void degree_validation(char *av)
             if (av[i] > '2' || av[i] < '0')
             {
                 if (av[i] > '9' || av[i] < '0')
-                    error(FORMAT_ERROR);
-                error(DEG_SUP);
+                    if (av[i] != ' ' && av[i] != '\0' && av[i] != '=')
+                        error(FORMAT_ERROR);
+                if (av[i] != ' ' && av[i] != '\0' && av[i] != '=')
+                        error(DEG_SUP);
             }
             i++;
             if (isdigit(av[i]))
@@ -55,9 +55,17 @@ void degree_validation(char *av)
         else
             i++;
     }
+    for (int v = 0; av[v]; v++)
+        if (av[v] == '=')
+            a++;
     if (a != 1)
+    {
+        std::cout << "eto" << std::endl;
         error(FORMAT_ERROR);
+    }
 }
+
+
 float dix_puis(int c, char str)
 {
     int i = 0;
@@ -110,15 +118,25 @@ void left_right_(std::string left, int sign)
                 i = i + 1;
             temp = temp * signn;
             if (str[i] == '2')
-                a = temp;
+                a = a + temp;
             if (str[i] == '1')
-                b = temp;
+                b = b + temp;
             if (str[i] == '0')
-                c = temp;
-            if (!isdigit(str[i]) && temp == 0)
-                b = 1;
+                c = c + temp;
+            if (!isdigit(str[i]))
+            {
+                if (temp)
+                    b = b + temp;
+                else
+                    b = 1 + b;
+            }
             temp = 0;
             signn = 1;
+        }
+        if (temp && (str[i + 1] == '\0' || str[i] == '+' || str[i] == '-'))
+        {
+            c = c + temp;
+            temp = 0;
         }
         i++;
     }
@@ -196,7 +214,7 @@ float sqrt_delta(float d)
         i++;
     fin = i;
     deb = i - 1;
-    float ret = 0;
+    double ret = 0;
     while(v_abs(ret * ret - d) > eupsi)
     {
         ret = (fin + deb) / 2.0;
@@ -222,23 +240,37 @@ void solve(void)
     computor.delta = delta();
     if (computor.delta == 0)
     {
-        computor.s1 = computor.c / (-2 * computor.c);
+        if (computor.c)
+            computor.s1 = computor.b / (-2 * computor.c);
+        else
+            computor.s1 = 0;
         return;
     }
     else if (computor.delta > 0)
     {
         float sq = sqrt_delta(computor.delta);
-        computor.s1 = (-1 * computor.b - sq) / (2 * computor.c);
-        computor.s2 = (-1 * computor.b + sq) / (2 * computor.c);
+        if (computor.c)
+        {
+            computor.s1 = (-1 * computor.b - sq) / (2 * computor.c);
+            computor.s2 = (-1 * computor.b + sq) / (2 * computor.c);
+        }
+        else
+        {
+            computor.s1 = 0;
+            computor.s2 = -1 * (computor.b / computor.a);
+        }
         return;
     }
     else
     {
         float temp_ = sqrt_delta(v_abs(computor.delta));
-        computor.s1 = computor.c / (-2 * computor.c);
-        computor.s2 = computor.c / (-2 * computor.c);
-        computor.is1 = temp_ / (-2 * computor.c);
-        computor.is2 = temp_ / (2 * computor.c);
+        if (computor.c)
+        {
+            computor.s1 = computor.c / (-2 * computor.c);
+            computor.s2 = computor.c / (-2 * computor.c);
+            computor.is1 = temp_ / (-2 * computor.c);
+            computor.is2 = temp_ / (2 * computor.c);
+        }
         return;
     }
 }
@@ -252,24 +284,4 @@ t_computor_v1 input_validation(char *av)
     left_value(av);
     solve();
     return (computor);
-}
-
-
-void aff_bonus(float f)
-{
-    int i = 0;
-    if (i > 0)
-        while (i < f)
-            i++;
-    else
-        while (i > f)
-            i--;
-    if (i == f)
-    {
-        
-    }
-    if (f < 0)
-    {
-
-    }
 }

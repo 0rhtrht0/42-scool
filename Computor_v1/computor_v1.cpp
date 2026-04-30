@@ -110,13 +110,17 @@ void left_right_(std::string left, int sign)
             i = i + 2;
             temp = temp * signn;
             if (str[i] == '2')
-                a = temp;
+                a += temp;
             if (str[i] == '1')
-                b = temp;
+                b += temp;
             if (str[i] == '0')
-                c = temp;
+                c += temp;
             temp = 0;
             signn = 1;
+        }
+        if (temp && (str[i + 1] == '\0' || str[i] == '+' || str[i] == '-'))
+        {
+            error(FORMAT_ERROR);
         }
         i++;
     }
@@ -194,7 +198,7 @@ float sqrt_delta(float d)
         i++;
     fin = i;
     deb = i - 1;
-    float ret = 0;
+    double ret = 0;
     while(v_abs(ret * ret - d) > eupsi)
     {
         ret = (fin + deb) / 2.0;

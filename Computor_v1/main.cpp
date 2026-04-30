@@ -51,13 +51,13 @@ void aff(t_computor_v1 computor)
     {
         std::cout << "The solution is:" << std::endl;
         if (computor.is1 > 0)
-            std::cout << computor.s1 << " + " << computor.is1 << std::endl;
+            std::cout << computor.s1 << " + " << computor.is1 << "i" <<  std::endl;
         else
-            std::cout << computor.s1 << " - " << -1 * computor.is1 << std::endl;
+            std::cout << computor.s1 << " - " << -1 * computor.is1 << "i" <<  std::endl;
         if (computor.is2 > 0)
-            std::cout << computor.s2 << " + " << computor.is2 << std::endl;
+            std::cout << computor.s2 << " + " << computor.is2 << "i" << std::endl;
         else
-            std::cout << computor.s2 << " - " << -1 * computor.is2 << std::endl;
+            std::cout << computor.s2 << " - " << -1 * computor.is2 << "i" << std::endl;
         return;
     }
 }

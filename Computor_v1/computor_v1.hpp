@@ -12,7 +12,7 @@
 #define DEG_SUP 2
 #define NO_SOLUTION 3
 #define FORMAT_ERROR 4
-#define eupsi 0.00001
+#define eupsi 0.0001
 
 struct t_computor_v1
 {

@@ -72,3 +72,4 @@ int main(int ac, char **av)
     aff(computor);
     return(0);
 }
+
