@@ -33,35 +33,40 @@ void aff(t_computor_v1 computor)
             std::cout << "0 * " << computor.c << " * x^0";
     std::cout << " = 0" << std::endl;
     std::cout << "Polynomial degree : " << computor.deg << std::endl;
-    if (computor.deg == 1)
-    {
-        std::cout << "The solution is:" << std::endl;
-        std::cout << computor.s1 << std::endl;
-    }
-    else if (computor.deg == 2 && computor.delta == 0)
-    {
-        std::cout << "The solution is:" << std::endl;
-        std::cout << computor.s1 << std::endl;
-    }
-    else if (computor.deg == 2 && computor.delta > 0)
-    {
-        std::cout << "The solution is:" << std::endl;
-        std::cout << computor.s1 << std::endl;
-        std::cout << computor.s2 << std::endl;
-    }
-    else if (computor.deg == 2 && computor.delta < 0)
-    {
-        std::cout << "The solution is:" << std::endl;
-        if (computor.is1 > 0)
-            std::cout << computor.s1 << " + " << computor.is1 << std::endl;
-        else
-            std::cout << computor.s1 << " - " << -1 * computor.is1 << std::endl;
-        if (computor.is2 > 0)
-            std::cout << computor.s2 << " + " << computor.is2 << std::endl;
-        else
-            std::cout << computor.s2 << " - " << -1 * computor.is2 << std::endl;
-        return;
-    }
+    // if (computor.deg == 1)
+    // {
+    //     std::cout << "The solution is:" << std::endl;
+    //     std::cout << computor.s1 << std::endl;
+    // }
+    // else if (computor.deg == 2 && computor.delta == 0)
+    // {
+    //     std::cout << "The solution is:" << std::endl;
+    //     std::cout << computor.s1 << std::endl;
+    // }
+    // else if (computor.deg == 2 && computor.delta > 0)
+    // {
+    //     std::cout << "The solution is:" << std::endl;
+    //     std::cout << computor.s1 << std::endl;
+    //     std::cout << computor.s2 << std::endl;
+    // }
+    // else if (computor.deg == 2 && computor.delta < 0)
+    // {
+    //     std::cout << "The solution is:" << std::endl;
+    //     if (computor.is1 > 0)
+    //         std::cout << computor.s1 << " + " << computor.is1 << std::endl;
+    //     else
+    //         std::cout << computor.s1 << " - " << -1 * computor.is1 << std::endl;
+    //     if (computor.is2 > 0)
+    //         std::cout << computor.s2 << " + " << computor.is2 << std::endl;
+    //     else
+    //         std::cout << computor.s2 << " - " << -1 * computor.is2 << std::endl;
+    //     return;
+    // }
+    std::cout << "The solution is:" << std::endl;
+    if (computor.sol1.empty())
+        std::cout << computor.sol1 << std::endl;
+    if (computor.sol2.empty())
+        std::cout << computor.sol2 << std::endl;
 }
 
 int main(int ac, char **av)

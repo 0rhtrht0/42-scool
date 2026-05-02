@@ -26,9 +26,12 @@ struct t_computor_v1
     float s2;
     float is1;
     float is2;
+    std::string sol1;
+    std::string sol2;
 };
 
 extern t_computor_v1 computor;
 
 void error(int i);
 t_computor_v1 input_validation(char *av);
+std::string converter(float f, int is_imag);

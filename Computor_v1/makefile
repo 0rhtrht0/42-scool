@@ -4,7 +4,7 @@ BONUS = computor_bonus
 
 CXX = c++
 
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror
 
 SRCS = computor_v1.cpp main.cpp
 SRCS_BONUS = computor_v1_bonus.cpp main_bonus.cpp

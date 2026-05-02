@@ -33,9 +33,7 @@ void degree_validation(char *av)
     int a = 0;
     while (av[i])
     {
-        if (av[i] == '=')
-            a++;
-        if (av[i] == 'x')
+        if (av[i] == 'x' && av[i] == 'X')
         {
             i++;
             if (av[i] != '^')
@@ -58,6 +56,9 @@ void degree_validation(char *av)
         else
             i++;
     }
+    for (int v = 0; av[v]; v++)
+    if (av[v] == '=')
+    a++;
     if (a != 1)
         error(FORMAT_ERROR);
 }
@@ -105,7 +106,7 @@ void left_right_(std::string left, int sign)
             }
             temp = temp_after_point + temp;
         }
-        if (str[i] == 'x')
+        if (str[i] == 'x' || str[i] == 'X')
         {
             i = i + 2;
             temp = temp * signn;
@@ -168,7 +169,9 @@ void left_value(char *av)
     if (computor.deg == 0)
     {
         if (computor.c)
+        {
             error(NO_SOLUTION);
+        }
     }
 }
 
@@ -224,37 +227,23 @@ void solve(void)
     computor.delta = delta();
     if (computor.delta == 0)
     {
-        if (computor.c)
-            computor.s1 = computor.b / (-2 * computor.c);
-        else
-            computor.s1 = 0;
+        computor.s1 = computor.b / (-2 * computor.a);
         return;
     }
     else if (computor.delta > 0)
     {
         float sq = sqrt_delta(computor.delta);
-        if (computor.c)
-        {
-            computor.s1 = (-1 * computor.b - sq) / (2 * computor.c);
-            computor.s2 = (-1 * computor.b + sq) / (2 * computor.c);
-        }
-        else
-        {
-            computor.s1 = 0;
-            computor.s2 = -1 * (computor.b / computor.a);
-        }
+        computor.s1 = (-1 * computor.b - sq) / (2 * computor.a);
+        computor.s2 = (-1 * computor.b + sq) / (2 * computor.a);
         return;
     }
     else
     {
         float temp_ = sqrt_delta(v_abs(computor.delta));
-        if (computor.c)
-        {
-            computor.s1 = computor.c / (-2 * computor.c);
-            computor.s2 = computor.c / (-2 * computor.c);
-            computor.is1 = temp_ / (-2 * computor.c);
-            computor.is2 = temp_ / (2 * computor.c);
-        }
+        computor.s1 = computor.b / (-2 * computor.a);
+        computor.s2 = computor.b / (-2 * computor.a);
+        computor.is1 = temp_ / (-2 * computor.a);
+        computor.is2 = temp_ / (2 * computor.a);
         return;
     }
 }

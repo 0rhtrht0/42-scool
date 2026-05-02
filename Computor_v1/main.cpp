@@ -43,12 +43,14 @@ void aff(t_computor_v1 computor)
     }
     else if (computor.deg == 2 && computor.delta > 0)
     {
+        std::cout << "Discriminant is strictly positive, the two solutions are:" << std::endl;
         std::cout << "The solution is:" << std::endl;
         std::cout << computor.s1 << std::endl;
         std::cout << computor.s2 << std::endl;
     }
     else if (computor.deg == 2 && computor.delta < 0)
     {
+        std::cout << "Discriminant is strictly negative, the two complex solutions are:" << std::endl;
         std::cout << "The solution is:" << std::endl;
         if (computor.is1 > 0)
             std::cout << computor.s1 << " + " << computor.is1 << "i" <<  std::endl;
