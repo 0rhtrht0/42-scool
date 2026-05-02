@@ -307,19 +307,19 @@ int *divv(int numerator, int denominator)
         limit = numerator/2;
         while(i < limit)
         {
+            if (numerator%i != 0)
+                std::cout << numerator << " " << denominator <<  "eto\n";
+            if (denominator%i != 0)
+                std::cout << numerator << " " << denominator <<  "eto\n";
             if (numerator%i == 0 && denominator%i == 0)
             {
-                std::cout << numerator << std::endl;
                 numerator /= i;
                 denominator /= i;
-                std::cout << numerator << std::endl;
-                break;
             }
-            // limit = numerator/i;
+            limit = numerator/i;
             i++;
         }
     }
-    // std::cout << numerator << " " << denominator <<  "eto\n";
     int *ret = (int *)malloc(sizeof(int) * 2);
     ret[0] = numerator;
     ret[1] = denominator;
