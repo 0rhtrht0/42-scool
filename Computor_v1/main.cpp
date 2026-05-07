@@ -71,8 +71,8 @@ int main(int ac, char **av)
         error(ARG_ERROR);
     if (ac == 1)
     {
-        char str[100];
-        printf("Entrez l'argument : ");
+        char str[2056];
+        printf("Entrez l'equation : ");
         fgets(str, sizeof(str), stdin);
         computor = input_validation(str);
         aff(computor);
