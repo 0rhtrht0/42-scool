@@ -71,10 +71,21 @@ void aff(t_computor_v1 computor)
 
 int main(int ac, char **av)
 {
-    if (ac != 2)
+    if (ac > 2)
         error(ARG_ERROR);
-    computor = input_validation(av[1]);
-    aff(computor);
+    if (ac == 1)
+    {
+        char str[100];
+        printf("Entrez l'argument : ");
+        fgets(str, sizeof(str), stdin);
+        computor = input_validation(str);
+        aff(computor);
+    }
+    else
+    {
+        computor = input_validation(av[1]);
+        aff(computor);
+    }
     return(0);
 }
 
