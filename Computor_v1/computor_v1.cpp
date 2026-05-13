@@ -2,6 +2,7 @@
 
 t_computor_v1 computor;
 
+
 void error(int i)
 {
     if (i == ARG_ERROR)
@@ -24,7 +25,7 @@ void error(int i)
         const char *msg = "format error.\n";
         write(2, msg, strlen(msg));
     }
-    exit(1);
+    computor.err = 1;
 }
 
 void degree_validation(char *av)
@@ -38,18 +39,18 @@ void degree_validation(char *av)
             i++;
             if (av[i] != '^')
             {
-                error(FORMAT_ERROR);
+                return(error(FORMAT_ERROR));
             }
             i++;
             if (av[i] > '2' || av[i] < '0')
             {
                 if (av[i] > '9' || av[i] < '0')
-                    error(FORMAT_ERROR);
-                error(DEG_SUP);
+                    return(error(FORMAT_ERROR));
+                return(error(DEG_SUP));
             }
             i++;
             if (isdigit(av[i]))
-                error(DEG_SUP);
+                return(error(DEG_SUP));
             while (isdigit(av[i]))
                 i++;
         }
@@ -60,7 +61,7 @@ void degree_validation(char *av)
     if (av[v] == '=')
     a++;
     if (a != 1)
-        error(FORMAT_ERROR);
+        return(error(FORMAT_ERROR));
 }
 float dix_puis(int c, char str)
 {
@@ -111,7 +112,7 @@ void left_right_(std::string left, int sign)
             i = i + 2;
             temp = temp * signn;
             if (str[i] > '2' || isdigit(str[i + 1]))
-                error(DEG_SUP);
+                return(error(DEG_SUP));
             if (str[i] == '2')
                 a += temp;
             if (str[i] == '1')
@@ -123,7 +124,7 @@ void left_right_(std::string left, int sign)
         }
         if (temp && (str[i + 1] == '\0' || str[i] == '+' || str[i] == '-'))
         {
-            error(FORMAT_ERROR);
+            return(error(FORMAT_ERROR));
         }
         i++;
     }
@@ -172,7 +173,7 @@ void left_value(char *av)
     {
         if (computor.c)
         {
-            error(NO_SOLUTION);
+            return(error(NO_SOLUTION));
         }
     }
 }
@@ -261,8 +262,13 @@ t_computor_v1 input_validation(char *av)
     computor.a = 0;
     computor.b = 0;
     computor.c = 0;
+    computor.err = 0;
     degree_validation(av);
+    if (computor.err == 1)
+        return (computor);
     left_value(av);
+    if (computor.err == 1)
+        return (computor);
     solve();
     return (computor);
 }

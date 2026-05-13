@@ -24,7 +24,7 @@ void error(int i)
         const char *msg = "format error.\n";
         write(2, msg, strlen(msg));
     }
-    exit(1);
+    computor.err = 1;
 }
 
 void degree_validation(char *av)
@@ -42,13 +42,13 @@ void degree_validation(char *av)
             {
                 if (av[i] > '9' || av[i] < '0')
                     if (av[i] != ' ' && av[i] != '\0' && av[i] != '=')
-                        error(FORMAT_ERROR);
+                        return(error(FORMAT_ERROR));
                 if (av[i] != ' ' && av[i] != '\0' && av[i] != '=')
                         error(DEG_SUP);
             }
             i++;
             if (isdigit(av[i]))
-                error(DEG_SUP);
+                return(error(DEG_SUP));
             while (isdigit(av[i]))
                 i++;
         }
@@ -60,7 +60,7 @@ void degree_validation(char *av)
             a++;
     if (a != 1)
     {
-        error(FORMAT_ERROR);
+        return(error(FORMAT_ERROR));
     }
 }
 
@@ -184,7 +184,7 @@ void left_value(char *av)
     if (computor.deg == 0)
     {
         if (computor.c)
-            error(NO_SOLUTION);
+            return(error(NO_SOLUTION));
     }
 }
 
@@ -268,67 +268,31 @@ void solve(void)
         computor.is1 = temp_ / (-2 * computor.a);
         computor.is2 = temp_ / (2 * computor.a);
         computor.sol1 = converter(computor.s1, 0);
-        computor.sol1 = computor.sol1 + converter(computor.is1, 1);
+        computor.sol1 = computor.sol1 + " + " +converter(computor.is1, 1);
         computor.sol2 = converter(computor.s2, 0);
-        computor.sol1 = computor.sol2 + converter(computor.s2, 1);
+        computor.sol2 = computor.sol2 + " + " + converter(computor.is2, 1);
         return;
     }
 }
-
-t_computor_v1 input_validation(char *av)
-{
-    computor.a = 0;
-    computor.b = 0;
-    computor.c = 0;
-    computor.sol1.clear();
-    computor.sol2.clear();
-    degree_validation(av);
-    left_value(av);
-    solve();
-    return (computor);
-}
-
 
 int *divv(int numerator, int denominator)
 {
     int limit;
     
-    if (numerator > denominator)
-    {
-        int i = 2;
-        limit = denominator/2;
-        while(i < limit)
-        {
-            if (numerator % i == 0)
-            {
-                if (denominator%i == 0)
-                {
-                    numerator /= i;
-                    denominator /= i;
-                }
-            }
-            // limit = denominator/i;
-            i++;
-        }
-    }
-    else
-    {
-        int i = 2;
+    int i = 2;
+    if (denominator < numerator)
         limit = numerator/2;
-        while(i < limit)
+    else
+        limit = denominator/2;
+    while(i <= limit)
+    {
+        while (denominator%i == 0 && numerator % i == 0)
         {
-            if (numerator%i != 0)
-                std::cout << numerator << " " << denominator <<  "eto\n";
-            if (denominator%i != 0)
-                std::cout << numerator << " " << denominator <<  "eto\n";
-            if (numerator%i == 0 && denominator%i == 0)
-            {
-                numerator /= i;
-                denominator /= i;
-            }
-            limit = numerator/i;
-            i++;
+            numerator /= i;
+            denominator /= i;
+
         }
+        i++;
     }
     int *ret = (int *)malloc(sizeof(int) * 2);
     ret[0] = numerator;
@@ -348,12 +312,12 @@ std::string converter(float f, int is_imag)
     }
     while (i < f)
         i++;
-    if (i - 1 == f)
+    if (i == f)
     {
         if (is_imag == 0)
-            return(std::to_string(sign * i - 1));
+            return(std::to_string(sign * i));
         else
-            return(std::to_string(sign * i - 1) + "i");
+            return(std::to_string(sign * i) + "i");
     }
     long long  int denominator = 1;
     i--;
@@ -364,32 +328,46 @@ std::string converter(float f, int is_imag)
         while (i < f)
             i++;
         long a = f;
-        long b = denominator;
         if (a - f == 0)
         {
-            if (b - denominator == 0)
                 break;
         }
         
     }
     std::string ret;
-    i--;
     int *div = divv(i, denominator);
     if (sign == -1)
     {
         if (is_imag == 0)
-        ret = "-" + std::to_string(div[0]) + "/" + std::to_string(div[1]);
+            ret = "-" + std::to_string(div[0]) + "/" + std::to_string(div[1]);
         else
-        ret = "-" + std::to_string(div[0]) + "i/" + std::to_string(div[1]);
+            ret = "-" + std::to_string(div[0]) + "i/" + std::to_string(div[1]);
     }
     else
     {    
         if (is_imag == 0)
-        ret =  std::to_string(div[0]) + "/" + std::to_string(div[1]);
+            ret =  std::to_string(div[0]) + "/" + std::to_string(div[1]);
         else
-        ret =  std::to_string(div[0]) + "i/" + std::to_string(div[1]);
+            ret =  std::to_string(div[0]) + "i/" + std::to_string(div[1]);
     }
     if (div)
         free(div);
     return(ret);
+}
+
+t_computor_v1 input_validation(char *av)
+{
+    computor.a = 0;
+    computor.b = 0;
+    computor.c = 0;
+    computor.sol1.clear();
+    computor.sol2.clear();
+    degree_validation(av);
+    if (computor.err == 1) 
+        return (computor);
+    left_value(av);
+    if (computor.err == 1)
+        return (computor);
+    solve();
+    return (computor);
 }

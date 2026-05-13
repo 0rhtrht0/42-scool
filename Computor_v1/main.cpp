@@ -2,6 +2,8 @@
 
 void aff(t_computor_v1 computor)
 {
+    if (computor.err == 1)
+        return;
     std::cout << "Reduced form: ";
     if (computor.a)
         std::cout << computor.a << " * x^2";
@@ -68,7 +70,10 @@ void aff(t_computor_v1 computor)
 int main(int ac, char **av)
 {
     if (ac > 2)
+    {
         error(ARG_ERROR);
+        return(1);
+    }
     if (ac == 1)
     {
         char str[2056];

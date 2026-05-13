@@ -4,6 +4,8 @@
 
 void aff(t_computor_v1 computor)
 {
+    if (computor.err == 1)
+        return;
     std::cout << "Reduced form: ";
     if (computor.a)
         std::cout << computor.a << " * x^2";
@@ -63,16 +65,19 @@ void aff(t_computor_v1 computor)
     //     return;
     // }
     std::cout << "The solution is:" << std::endl;
-    if (computor.sol1.empty())
+    if (!computor.sol1.empty())
         std::cout << computor.sol1 << std::endl;
-    if (computor.sol2.empty())
+    if (!computor.sol2.empty())
         std::cout << computor.sol2 << std::endl;
 }
 
 int main(int ac, char **av)
 {
     if (ac > 2)
+    {
         error(ARG_ERROR);
+        return(1);
+    }
     if (ac == 1)
     {
         char str[2056];

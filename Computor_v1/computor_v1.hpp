@@ -28,6 +28,7 @@ struct t_computor_v1
     float is2;
     std::string sol1;
     std::string sol2;
+    bool err;
 };
 
 extern t_computor_v1 computor;
