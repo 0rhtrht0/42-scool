@@ -212,7 +212,6 @@ float sqrt_delta(float d)
 
     while(i * i <= d)
         i++;
-    std::cout << "i = " << i - 1 << std::endl;
     if ((i - 1) * (i - 1) == d)
     {
         float ret = (float)i - 1;
@@ -268,9 +267,15 @@ void solve(void)
         computor.is1 = temp_ / (-2 * computor.a);
         computor.is2 = temp_ / (2 * computor.a);
         computor.sol1 = converter(computor.s1, 0);
-        computor.sol1 = computor.sol1 + " + " +converter(computor.is1, 1);
+        if (computor.is1 >= 0)
+            computor.sol1 = computor.sol1 + " +" +converter(computor.is1, 1);
+        else
+            computor.sol1 = computor.sol1 + " " +converter(computor.is1, 1);
         computor.sol2 = converter(computor.s2, 0);
-        computor.sol2 = computor.sol2 + " + " + converter(computor.is2, 1);
+        if (computor.is2 >= 0)
+            computor.sol2 = computor.sol2 + " +" + converter(computor.is2, 1);
+        else
+            computor.sol2 = computor.sol2 + " " + converter(computor.is2, 1);
         return;
     }
 }
@@ -364,10 +369,10 @@ t_computor_v1 input_validation(char *av)
     computor.sol2.clear();
     degree_validation(av);
     if (computor.err == 1) 
-        return (computor);
+    return (computor);
     left_value(av);
     if (computor.err == 1)
-        return (computor);
+    return (computor);
     solve();
     return (computor);
 }
