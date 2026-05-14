@@ -64,7 +64,6 @@ void aff(t_computor_v1 computor)
             std::cout << computor.s2 << " - " << -1 * computor.is2 << "i" << std::endl;
         return;
     }
-    std::cout << "delta = " << computor.delta << std::endl;
 }
 
 int main(int ac, char **av)

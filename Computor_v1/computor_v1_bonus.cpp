@@ -111,31 +111,46 @@ void left_right_(std::string left, int sign)
         }
         if (str[i] == 'x'|| str[i] == 'X')
         {
-            if (str[i + 1] == '^')
-                i = i + 2;
-            else
-                i = i + 1;
+            i++;
+            if (!isdigit(str[i]))
+                i++;
             temp = temp * signn;
             if (str[i] == '2')
-                a = a + temp;
-            if (str[i] == '1')
-                b = b + temp;
-            if (str[i] == '0')
-                c = c + temp;
-            if (!isdigit(str[i]))
+            {
+                if (temp)
+                    a = a + temp;
+                else
+                    a = a + 1 * signn;
+            }
+            else if (str[i] == '1')
             {
                 if (temp)
                     b = b + temp;
                 else
-                    b = 1 + b;
+                    b = b + 1 * signn;
+            }
+            else if (str[i] == '0')
+            {
+                if (temp)
+                    c = c + temp;
+                else
+                    c = c + 1 *signn;
+            }
+            else
+            {
+                if (temp)
+                    b = b + temp;
+                else
+                    b = 1 * signn + b;
             }
             temp = 0;
             signn = 1;
         }
-        if (temp && (str[i + 1] == '\0' || str[i] == '+' || str[i] == '-'))
+        else if (temp && (str[i + 1] == '\0' || str[i] == '+' || str[i] == '-' || str[i] == '='))
         {
-            c = c + temp;
+            c = c + temp * signn;
             temp = 0;
+            signn = 1;
         }
         i++;
     }
@@ -151,7 +166,6 @@ void left_right_(std::string left, int sign)
         computor.b = computor.b - b;
         computor.c = computor.c - c;
     }
-    // std::cout << computor.a << " " << computor.b << " " << computor.c << " eto" << std::endl;
 }
 
 void left_value(char *av)

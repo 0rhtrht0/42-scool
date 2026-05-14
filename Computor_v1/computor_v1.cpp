@@ -202,7 +202,6 @@ float sqrt_delta(float d)
 
     while(i * i <= d)
         i++;
-    std::cout << "i = " << i - 1 << std::endl;
     if ((i - 1) * (i - 1) == d)
     {
         float ret = (float)i - 1;
