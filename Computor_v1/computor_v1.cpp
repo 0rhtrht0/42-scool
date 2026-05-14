@@ -109,6 +109,8 @@ void left_right_(std::string left, int sign)
         }
         if (str[i] == 'x' || str[i] == 'X')
         {
+            if (str[i + 1] != '^')
+                return(error(FORMAT_ERROR));
             i = i + 2;
             temp = temp * signn;
             if (str[i] > '2' || isdigit(str[i + 1]))
@@ -153,7 +155,11 @@ void left_value(char *av)
         left_rigt.push_back(temp);
     }
     left_right_(left_rigt[0], 0);
+    if (computor.err == 1)
+        return;
     left_right_(left_rigt[1], 1);
+    if (computor.err == 1)
+        return;
     if (computor.a < 0)
     {
         computor.a = -1 * computor.a;

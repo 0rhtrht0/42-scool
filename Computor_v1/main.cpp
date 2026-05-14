@@ -30,9 +30,14 @@ void aff(t_computor_v1 computor)
         }
     }
     else if (!computor.a && !computor.b && !computor.c)
-            std::cout << "0 * " << computor.c << " * x^0";
+            std::cout << computor.c << " * x^0";
     std::cout << " = 0" << std::endl;
-    std::cout << "Polynomial degree : " << computor.deg << std::endl;
+    if (!computor.a && !computor.b && !computor.c)
+    {
+        std::cout << "Polynomial degree : " << computor.deg << std::endl;
+    }
+    else
+        std::cout << "Polynomial degree : " << computor.deg << std::endl;
     if (computor.deg == 1)
     {
         std::cout << "The solution is:" << std::endl;
