@@ -4,7 +4,7 @@ size_t data::puiss(size_t nbr, int puis)
 {
     size_t ret = 1;
 
-    if (puiss == 0)
+    if (puis == 0)
         return (ret);
     while (puis)
     {

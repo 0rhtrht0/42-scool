@@ -1,8 +1,8 @@
-NAME = computor
+NAME = computor_v2
 
 CXX = c++
 
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror 
 
 SRCS = computor.cpp main.cpp utils.cpp function.cpp matrice.cpp const.cpp
 

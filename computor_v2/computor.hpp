@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdio.h>
+#include <string>
 #include <vector>
 
 struct polynome
@@ -25,7 +26,7 @@ class data
 {
 private:
 	std::vector<polynome> pol;
-	std::vector<std::string, float> cst;
+	std::vector<std::string> cst;
 	std::vector<mat> matt;
 	std::vector<vect> vct;
 

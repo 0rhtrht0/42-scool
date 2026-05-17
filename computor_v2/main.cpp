@@ -1,20 +1,16 @@
-
-//#include "computor.hpp"
-#include <iostream>
+#include "computor.hpp"
 
 int main(int ac ,char **av)
 {
-    char in_[128];
-    //data data_;
-
-    while (1)
+    data data_;
+    while(1)
     {
+        std::string in_;
         std::cout << "> ";
-        std::cin >> in_; 
+        std::getline(std::cin, in_);
         if (in_ == "quit")
-            return(0);
-
-        std::cout << "l'entre est : " << in_ << std::endl; 
+            break;
+        data_.update_data(in_);
     }
     return(0);
 }
