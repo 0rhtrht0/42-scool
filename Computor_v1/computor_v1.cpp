@@ -268,6 +268,22 @@ t_computor_v1 input_validation(char *av)
     computor.b = 0;
     computor.c = 0;
     computor.err = 0;
+
+    int a = 0;
+    while (av[a])
+    {
+        if (!isdigit(av[a]))
+        {
+            if (!strchr("*.^xX=-+ ", av[a]))
+            {
+                error(FORMAT_ERROR);
+                break;
+            }
+        }
+        a++;
+    }
+    if (computor.err == 1)
+        return (computor); 
     degree_validation(av);
     if (computor.err == 1)
         return (computor);
