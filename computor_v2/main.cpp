@@ -10,6 +10,7 @@ int main(int ac ,char **av)
         std::getline(std::cin, in_);
         if (in_ == "quit")
             break;
+        std::cout << in_ <<std::endl;
         data_.update_data(in_);
     }
     return(0);

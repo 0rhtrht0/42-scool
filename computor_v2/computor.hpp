@@ -49,3 +49,5 @@ public:
 	int quit = 1;
 	void update_data(std::string input);
 };
+
+std::string trim(const std::string& s);

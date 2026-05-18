@@ -13,15 +13,22 @@ void data::set_matrice(std::vector<float>, std::string mane, int dim[2])
 
 mat data::add_mat(mat m1, char op, mat m2)
 {
+    mat ret;
 
+    return(ret);
 }
 
 mat data::sub_mat(mat m1, mat m2)
 {
+    mat ret;
+
+    return(ret);
 
 }
 
 mat data::cst_mat(mat m, float f)
 {
+    mat ret;
+    return(ret);
 
 }
