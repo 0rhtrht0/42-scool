@@ -2,6 +2,14 @@
 
 t_computor_v1 computor;
 
+int is_over(float b)
+{
+    long long a = b;
+    if(a < INT32_MIN || a > INT32_MAX)
+        return(0);
+    return(1);
+}
+
 void error(int i)
 {
     if (i == ARG_ERROR)
@@ -22,6 +30,11 @@ void error(int i)
     else if (i == FORMAT_ERROR)
     {
         const char *msg = "format error.\n";
+        write(2, msg, strlen(msg));
+    }
+    else if (i == INT_FLOW)
+    {
+        const char *msg = "Int_flow\n";
         write(2, msg, strlen(msg));
     }
     computor.err = 1;
@@ -166,6 +179,8 @@ void left_right_(std::string left, int sign)
         computor.b = computor.b - b;
         computor.c = computor.c - c;
     }
+    if (!is_over(computor.a) || !is_over(computor.b) || !is_over(computor.c))
+            return(error(INT_FLOW));
 }
 
 void left_value(char *av)
@@ -222,8 +237,8 @@ float sqrt_delta(float d)
     int i = 0;
     double deb;
     double fin;
-
-
+    if (is_over(d) == 0)
+        return(error(INT_FLOW), 0);
     while(i * i <= d)
         i++;
     if ((i - 1) * (i - 1) == d)
@@ -376,6 +391,21 @@ std::string converter(float f, int is_imag)
 
 t_computor_v1 input_validation(char *av)
 {
+    int a = 0;
+    while (av[a])
+    {
+        if (!isdigit(av[a]))
+        {
+            if (!strchr("*.^xX=-+ ", av[a]))
+            {
+                error(INT_FLOW);
+                break;
+            }
+        }
+        a++;
+    }
+    if (computor.err == 1)
+        return (computor); 
     computor.a = 0;
     computor.b = 0;
     computor.c = 0;
